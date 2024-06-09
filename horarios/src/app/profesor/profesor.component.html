@@ -1,0 +1,39 @@
+<app-header></app-header>
+<div class="contenedor">
+  <!-- Contenedor para el botón de añadir -->
+  <div class="header-actions">
+    <div class="search-container">
+      <input type="text" pInputText placeholder="Buscar por código de profesor..." />
+      <button pButton type="button" icon="pi pi-search" label="Buscar"></button>
+    </div>
+    <button pButton type="button" icon="pi pi-plus" label="Añadir Nuevo" class="add-button" (click)="onAddNew()"></button>
+  </div>
+
+  <!-- Tabla de profesores -->
+  <p-table [value]="profesores" [loading]="loading" class="custom-table">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Id</th>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-profesor>
+      <tr>
+        <td>{{ profesor.usuario }}</td>
+        <td>{{ profesor.profesor_cod }}</td>
+        <td>{{ profesor.nombre }}</td>
+        <td>
+          <button pButton type="button" icon="pi pi-eye" (click)="verProfesor(profesor)"></button>
+          <button pButton type="button" icon="pi pi-pencil" (click)="editarProfesor(profesor)"></button>
+          <button pButton type="button" icon="pi pi-trash" (click)="eliminarProfesor(profesor)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+
+
+

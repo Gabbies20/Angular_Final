@@ -1,0 +1,46 @@
+<app-header></app-header>
+<div class="container">
+    <div class="row botonAniadir">
+        <button>Añadir nuevo</button>
+    </div>
+    <div class="row listaProfesores">
+      <div class="col">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover table-sm" >
+            <caption><p class="h7">Lista de Amigos</p></caption>
+            <thead>
+              <tr class="table-success">
+                <th>Código</th>
+                <th>C.Profesor</th>
+                <th>Día</th>
+                <th>C.Asignatura</th>
+                <th>C.Aula</th>
+                <th>C.Grupo</th>
+                <th>Periodo</th>
+                <th>Franja</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Usamos *ngFor para iterar sobre el array de amigos -->
+              <tr *ngFor="let horario of horarios">
+                <td>{{ horario.horario_cod }}</td>
+                <td>{{horario.profesor_cod.profesor_cod}}</td>
+                <td>{{horario.dia}}</td>
+                <td>{{horario.asignatura_cod.asignatura_cod}}</td>
+                <td>{{horario.aula_cod.aula_cod}}</td>
+                <td>{{horario.grupo_cod.grupo_cod}}</td>
+                <td>{{horario.periodo_cod}}</td>
+                <td>{{horario.franja_cod.descripcion}}</td>
+                <td>
+                    <i class="bi bi-eye text-primary"  title="Ver"></i>
+                <i class="bi bi-pencil text-warning mx-2"  title="Editar"></i>
+                <i class="bi bi-trash text-danger"  title="Eliminar"></i>    
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
