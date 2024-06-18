@@ -1,79 +1,47 @@
-.contenedor {
-    margin: 20px;
-    align-items: center;
-  }
-  
-  .header-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .search-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .search-container input {
-    width: 300px;
-    padding: 5px;
-    margin-right: 10px;
-  }
-  
-  button {
-    margin-left: 10px;
-    background-color: rgb(171, 223, 165);
-    border: 1px solid white;
-  }
+.table-horario {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
 
-  th{
-    align-items: center;
-  }
-  
-  .contenedor {
-    margin: 20px;
-  }
-  
-  .header-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .search-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .search-container input {
-    width: 300px;
-    padding: 5px;
-    margin-right: 10px;
-  }
-  
-  .add-button {
-    margin-left: 10px;
-  }
-  
-  /* Estilos para la tabla */
-  .custom-table table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: center;
-  }
-  
-  .custom-table th, .custom-table td {
-    border: 1px solid #ccc;
-    padding: 8px;
-  }
-  
-  .custom-table th {
-    background-color: #f4f4f4;
-  }
-  
-  .custom-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
+.table-horario th, .table-horario td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.table-horario th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.table-horario td {
+  background-color: #f2f2f2;
+}
+
+.table-horario tbody tr:nth-child(even) td {
+  background-color: #e6ffe6; /* Verde claro */
+}
+
+.table-horario tbody tr:nth-child(odd) td {
+  background-color: #ffffff; /* Blanco */
+}
+
+.table-horario tbody tr:hover td {
+  background-color: #c8e6c9; /* Verde claro al pasar el cursor */
+}
+
+.table-horario th, .table-horario td {
+  font-size: 14px;
+  padding: 10px;
+}
+
+.table-horario th {
+  font-size: 16px;
+}
+
+.table-horario caption {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}

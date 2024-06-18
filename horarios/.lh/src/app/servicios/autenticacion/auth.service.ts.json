@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/app/servicios/autenticacion/auth.service.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1718411583267,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1718411595960,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,39 @@\n import { Injectable } from '@angular/core';\n+import { HttpClient } from '@angular/common/http';\n+import { Router } from '@angular/router';\n+import { BehaviorSubject } from 'rxjs';\n \n+\n @Injectable({\n   providedIn: 'root'\n })\n export class AuthService {\n \n \n+  private tokenSubject: BehaviorSubject<string>;\n+\n+  constructor(private http: HttpClient, private router: Router) {\n+    this.tokenSubject = new BehaviorSubject<string>(localStorage.getItem('token'));\n+  }\n+\n+  login(username: string, password: string) {\n+    return this.http.post<any>('http://localhost:8000/api/token/', { username, password })\n+      .subscribe(response => {\n+        localStorage.setItem('token', response.access);\n+        this.tokenSubject.next(response.access);\n+        this.router.navigate(['/dashboard']);\n+      }, error => {\n+        console.error('Login error', error);\n+      });\n+  }\n+\n+  logout() {\n+    localStorage.removeItem('token');\n+    this.tokenSubject.next(null);\n+    this.router.navigate(['/login']);\n+  }\n+\n+  get token() {\n+    return this.tokenSubject.asObservable();\n+  }\n+}\n"
+                },
+                {
+                    "date": 1718411827772,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,34 +6,5 @@\n \n @Injectable({\n   providedIn: 'root'\n })\n-export class AuthService {\n \n-\n-  private tokenSubject: BehaviorSubject<string>;\n-\n-  constructor(private http: HttpClient, private router: Router) {\n-    this.tokenSubject = new BehaviorSubject<string>(localStorage.getItem('token'));\n-  }\n-\n-  login(username: string, password: string) {\n-    return this.http.post<any>('http://localhost:8000/api/token/', { username, password })\n-      .subscribe(response => {\n-        localStorage.setItem('token', response.access);\n-        this.tokenSubject.next(response.access);\n-        this.router.navigate(['/dashboard']);\n-      }, error => {\n-        console.error('Login error', error);\n-      });\n-  }\n-\n-  logout() {\n-    localStorage.removeItem('token');\n-    this.tokenSubject.next(null);\n-    this.router.navigate(['/login']);\n-  }\n-\n-  get token() {\n-    return this.tokenSubject.asObservable();\n-  }\n-}\n"
+                }
+            ],
+            "date": 1718411583267,
+            "name": "Commit-0",
+            "content": "import { Injectable } from '@angular/core';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class AuthService {\n\n\n"
+        }
+    ]
+}

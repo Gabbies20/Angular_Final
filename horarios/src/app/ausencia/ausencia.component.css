@@ -1,0 +1,107 @@
+/* General styles for the container */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.container {
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.ausencia-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom styles for PrimeNG components */
+.custom-calendar .ui-inputtext {
+  border: 1px solid #4CAF50;
+  border-radius: 4px;
+}
+
+.custom-calendar .ui-state-default, 
+.custom-calendar .ui-datepicker {
+  border-color: #4CAF50;
+}
+
+.custom-calendar .ui-datepicker-header {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.custom-calendar .ui-state-active,
+.custom-calendar .ui-state-highlight {
+  background-color: #45a049 !important;
+  color: white !important;
+}
+
+.custom-input {
+  border: 1px solid #4CAF50;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.custom-input:focus {
+  border-color: #45a049;
+  box-shadow: 0 0 5px #45a049;
+}
+
+.custom-dropdown .ui-dropdown-label {
+  color: #4CAF50;
+}
+
+.custom-dropdown .ui-dropdown-panel {
+  border-color: #4CAF50;
+}
+
+.custom-dropdown .ui-state-active,
+.custom-dropdown .ui-state-highlight,
+.custom-dropdown .ui-state-hover {
+  background-color: #4CAF50 !important;
+  color: white !important;
+}
+
+.custom-checkbox .ui-chkbox-box {
+  border-color: #4CAF50;
+}
+
+.custom-checkbox .ui-chkbox-icon {
+  color: #4CAF50;
+}
+
+.custom-checkbox .ui-state-active .ui-chkbox-box {
+  background-color: #4CAF50;
+  border-color: #4CAF50;
+}
+
+.custom-button {
+  background-color: #4CAF50 !important; /* Green */
+  border-color: #4CAF50 !important; /* Green */
+}
+
+.custom-button:hover {
+  background-color: #45a049 !important; /* Darker green */
+  border-color: #45a049 !important; /* Darker green */
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+}
+

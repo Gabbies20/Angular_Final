@@ -1,92 +1,102 @@
 <app-header></app-header>
-<div class="contenedor">
-  <!-- Contenedor para el botón de añadir -->
-  <div class="header-actions">
-    <div class="search-container">
-      <input 
-        type="text" 
-        pInputText 
-        placeholder="Buscar por código de profesor..." 
-        [(ngModel)]="codigoAsignatura" 
-        name="codigoAsignatura" 
-      />
-      <button 
-        pButton 
-        type="button" 
-        icon="pi pi-search" 
-        label="Buscar" 
-        (click)="obtenerAsignatura()"
-      ></button>
+<div class="main-container">
+    <div class="content">
+      <div class="container">
+        <div class="header-actions">
+          <div class="search-container">
+            <input 
+              type="text" 
+              pInputText 
+              placeholder="Buscar por código de profesor..." 
+              [(ngModel)]="codigoAsignatura" 
+              name="codigoAsignatura" 
+            />
+            <button 
+              pButton 
+              type="button" 
+              icon="pi pi-search" 
+              label="Buscar" 
+              (click)="obtenerAsignatura()"
+            ></button>
+          </div>
+          <button 
+            pButton 
+            type="button" 
+            icon="pi pi-plus" 
+            label="Añadir Nuevo" 
+            class="add-button" 
+            (click)="mostrarFormularioNuevo()"
+          ></button>
+        </div>
+  
+        <!-- Mostrar mensaje si no se encontraron resultados -->
+        <p-message *ngIf="noResults" severity="warning" text="No se encontró ninguna asignatura con el código proporcionado."></p-message>
+  
+        <!-- Tabla de profesores -->
+        <p-table [value]="asignaturas" [loading]="loading" class="custom-table">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Código</th>
+              <th>Descripción</th>
+              <th>Acciones</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-asignatura>
+            <tr>
+              <td>{{ asignatura.asignatura_cod }}</td>
+              <td>{{ asignatura.descripcion }}</td>
+              <td>
+                <button pButton type="button" icon="pi pi-eye" (click)="mostrarDetalles(asignatura)"></button>
+                <button pButton type="button" icon="pi pi-pencil" (click)="mostrarFormularioEdicion(asignatura)"></button>
+                <button pButton type="button" icon="pi pi-trash" (click)="confirmarEliminacion(asignatura)"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+  
+        <!-- Formulario de Edición en un Modal -->
+        <p-dialog header="{{ esEdicion ? 'Editar Asignatura' : 'Añadir Asignatura' }}" [(visible)]="mostrarFormulario" [modal]="true" [closable]="false">
+          <form [formGroup]="editarForm" (ngSubmit)="guardarAsignatura()">
+            <div class="form-group">
+              <label for="asignatura_cod">Código:</label>
+              <input id="asignatura_cod" type="text" pInputText formControlName="asignatura_cod" />
+            </div>
+            <div class="form-group">
+              <label for="descripcion">Descripción:</label>
+              <input id="descripcion" type="text" pInputText formControlName="descripcion" />
+            </div>
+            <div class="dialog-footer">
+              <button pButton type="submit" label="Guardar"></button>
+              <button pButton type="button" label="Cancelar" class="ui-button-secondary" (click)="mostrarFormulario = false"></button>
+            </div>
+          </form>
+        </p-dialog>
+  
+        <!-- Modal de Confirmación de Eliminación -->
+        <p-dialog header="Confirmar Eliminación" [(visible)]="mostrarConfirmacion" [modal]="true" [closable]="false">
+          <div class="confirm-dialog">
+            <p>¿Estás seguro de que deseas eliminar la asignatura <strong>{{ asignaturaSeleccionada?.asignatura_cod }}</strong>?</p>
+            <div class="dialog-footer">
+              <button pButton type="button" label="Sí" (click)="eliminarAsignaturaConfirmada()"></button>
+              <button pButton type="button" label="No" class="ui-button-secondary" (click)="mostrarConfirmacion = false"></button>
+            </div>
+          </div>
+        </p-dialog>
+  
+        <!-- Modal de Detalles -->
+        <p-dialog header="Detalles de la Asignatura" [(visible)]="mostrarDetallesDialog" [modal]="true" [closable]="true">
+          <div class="details-dialog">
+            <p><strong>Código:</strong> {{ asignaturaDetalles?.asignatura_cod }}</p>
+            <p><strong>Descripción:</strong> {{ asignaturaDetalles?.descripcion }}</p>
+            <button pButton type="button" label="Cerrar" class="ui-button-secondary" (click)="mostrarDetallesDialog = false"></button>
+          </div>
+        </p-dialog>
+      </div>
     </div>
-    <button 
-      pButton 
-      type="button" 
-      icon="pi pi-plus" 
-      label="Añadir Nuevo" 
-      class="add-button" 
-      (click)="mostrarFormularioNuevo()"
-    ></button>
   </div>
+  
+  
 
-  <!-- Mostrar mensaje si no se encontraron resultados -->
-  <p-message *ngIf="noResults" severity="warning" text="No se encontró ninguna asignatura con el código proporcionado."></p-message>
-
-  <!-- Tabla de profesores -->
-  <p-table [value]="asignaturas" [loading]="loading" class="custom-table">
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Código</th>
-        <th>Descripción</th>
-        <th>Acciones</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-asignatura>
-      <tr>
-        <td>{{ asignatura.asignatura_cod }}</td>
-        <td>{{ asignatura.descripcion }}</td>
-        <td>
-          <button pButton type="button" icon="pi pi-eye" (click)="mostrarDetalles(asignatura)"></button>
-          <button pButton type="button" icon="pi pi-pencil" (click)="mostrarFormularioEdicion(asignatura)"></button>
-          <button pButton type="button" icon="pi pi-trash" (click)="confirmarEliminacion(asignatura)"></button>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
-
-  <!-- Formulario de Edición en un Modal -->
-  <p-dialog header="{{ esEdicion ? 'Editar Asignatura' : 'Añadir Asignatura' }}" [(visible)]="mostrarFormulario" [modal]="true" [closable]="false">
-    <form [formGroup]="editarForm" (ngSubmit)="guardarAsignatura()">
-      <div class="form-group">
-        <label for="asignatura_cod">Código:</label>
-        <input id="asignatura_cod" type="text" pInputText formControlName="asignatura_cod" />
-      </div>
-      <div class="form-group">
-        <label for="descripcion">Descripción:</label>
-        <input id="descripcion" type="text" pInputText formControlName="descripcion" />
-      </div>
-      <button pButton type="submit" label="Guardar"></button>
-      <button pButton type="button" label="Cancelar" class="ui-button-secondary" (click)="mostrarFormulario = false"></button>
-    </form>
-  </p-dialog>
-
-  <!-- Modal de Confirmación de Eliminación -->
-  <p-dialog header="Confirmar Eliminación" [(visible)]="mostrarConfirmacion" [modal]="true" [closable]="false">
-    <div class="confirm-dialog">
-      <p>¿Estás seguro de que deseas eliminar la asignatura <strong>{{ asignaturaSeleccionada?.asignatura_cod }}</strong>?</p>
-      <button pButton type="button" label="Sí" (click)="eliminarAsignaturaConfirmada()"></button>
-      <button pButton type="button" label="No" class="ui-button-secondary" (click)="mostrarConfirmacion = false"></button>
-    </div>
-  </p-dialog>
-
-  <!-- Modal de Detalles -->
-  <p-dialog header="Detalles de la Asignatura" [(visible)]="mostrarDetallesDialog" [modal]="true" [closable]="true">
-    <div class="details-dialog">
-      <p><strong>Código:</strong> {{ asignaturaDetalles?.asignatura_cod }}</p>
-      <p><strong>Descripción:</strong> {{ asignaturaDetalles?.descripcion }}</p>
-      <button pButton type="button" label="Cerrar" class="ui-button-secondary" (click)="mostrarDetallesDialog = false"></button>
-    </div>
-  </p-dialog>
-</div>
 
 
 

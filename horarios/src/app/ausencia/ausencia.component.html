@@ -1,0 +1,41 @@
+<app-header></app-header>
+<!-- ausencia.component.html -->
+<div class="main-container">
+  <div class="content">
+    <div class="container">
+      <form [formGroup]="ausenciaForm" (ngSubmit)="onSubmit()">
+        <div>
+          <label for="fecha">Fecha:</label>
+          <input id="fecha" formControlName="fecha" type="date">
+        </div>
+       
+        <div>
+          <label for="motivo">Motivo:</label>
+          <input id="motivo" formControlName="motivo" type="text">
+        </div>
+     
+        <div *ngIf="!isAdmin">
+          <label for="horarioId">Horario:</label>
+          <select id="horarioId" formControlName="horarioId">
+            <option *ngFor="let asignatura of asignaturas" [value]="asignatura.id">{{ asignatura.asignatura }} - {{ asignatura.franja }}
+ </option>
+          </select>
+        </div>
+     
+        <div *ngIf="isAdmin">
+          <label for="profesor">Profesor:</label>
+          <select id="profesor" formControlName="profesor">
+            <option *ngFor="let profesor of profesores" [value]="profesor.profesor_cod">{{ profesor.nombre }}</option>
+          </select>
+        </div>
+     
+        <div>
+          <label for="diaEntero">Día entero:</label>
+          <input id="diaEntero" formControlName="diaEntero" type="checkbox">
+        </div>
+     
+        <button type="submit">Crear Ausencia</button>
+      </form>
+    </div>
+  </div>
+</div>

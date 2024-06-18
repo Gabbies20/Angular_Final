@@ -1,16 +1,29 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Horarios</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
+  <head>
+    <meta charset="utf-8">
+    <title>Horarios</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
 <body class="mat-typography">
   <app-root></app-root>
+  <!-- Verifica si los scripts de jQuery y Bootstrap están cargados -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (typeof $ !== 'undefined') {
+        console.log('jQuery is working');
+        $('[data-toggle="dropdown"]').dropdown();
+      } else {
+        console.log('jQuery is not loaded');
+      }
+    });
+  </script>
+  
 </body>
 </html>
